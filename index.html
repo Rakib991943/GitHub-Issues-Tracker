@@ -27,7 +27,128 @@
 </style>
 </head>
 <body>
+<!-- Header Staart Here  -->
+    <header>
+  <div class="navbar bg-base-100 shadow-sm  px-14 py-5">
+  <div class="flex-1">
+    <div class="flex items-center gap-4">
+    <img class="w-[40px]" src="assets/github-logo.png" alt="">
+    <a class=" text-xl">GitHub Issue Tracker </a>
+    </div>
+  </div>
+  <div class="flex gap-2">
+    <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />
+       <button class="btn btn-primary">  + New Issue </button>
+  </div>
+</div>
+    </header>
+
+    <!-- Login Form  -->
+
+<!--
+<div id="loginForm" class="card w-[420px] mx-auto bg-base-100 shadow-xl p-8 mt-5">
+
+    <div class="flex justify-center mb-4">
+      <div class=" ">
+          <img src="assets/github-logo.png" alt="">
+      </div>
+    </div>
+
+    <h2 class="text-center text-2xl font-bold">GitHub Issues Tracker</h2>
+    <p class="text-center text-gray-500 mb-6">
+      Sign in to manage your issues
+    </p>
+
+    <div class="form-control mb-4">
+      <label class="label">
+        <span class="label-text font-semibold">Username</span>
+      </label>
+
+      <input 
+        type="text" 
+        placeholder="Enter Username"
+        class="input input-bordered w-full"
+        id="inputName"
+      />
+
+      <p class="text-sm text-blue-500 mt-1">Default: admin</p>
+    </div>
+
+    <div class="form-control mb-6">
+      <label class="label">
+        <span class="label-text font-semibold">Password</span>
+      </label>
+
+      <input 
+        type="password" 
+        placeholder="Enter Password"
+        class="input input-bordered w-full"
+        id="inputPassword"
+      />
+
+      <p class="text-sm text-blue-500 mt-1">Default: admin123</p>
+    </div>
+
+    <button onclick="handleSignIn()" class="btn bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-none">
+      Sign In
+    </button>
+
+    <div class="divider">OR</div>
+
+    <div class="bg-gray-100 rounded-lg p-4 text-center text-sm">
+      <p class="font-semibold">Demo Credentials:</p>
+      <p>Username: <span class="font-semibold">admin</span></p>
+      <p>Password: <span class="font-semibold">admin123</span></p>
+    </div>
+
+</div>
+-->
 
     
+  
+
+
+
+
+  <main id="mainContainer" class="w-11/12 mx-auto" >
+  
+
+    <!-- Tabs -->
+    <div class="shadow-2xl">
+      <div class="flex border border-blue-500 rounded-md  mb-6">
+        <button class="px-4 py-2 bg-blue-600 text-white font-semibold rounded-l-md">All</button>
+        <button class="px-4 py-2 border-l border-blue-500 text-blue-500 font-semibold">Open</button>
+        <button class="px-4 py-2 border-l border-blue-500 text-blue-500 font-semibold ">Closed</button>
+    </div>
+    </div>
+
+    <!-- Issue Card -->
+    <div class="shadow-2xl">
+      <div class="flex items-center justify-between  bg-white shadow-md rounded-lg p-4 ">
+        <!-- Icon -->
+        <div class="text-purple-500 text-2xl mr-4">
+            <i class="fas fa-exclamation-circle"></i>
+        </div>
+
+        <!-- Text Content -->
+        <div class="flex-1">
+            <h3 class="font-bold text-lg">50 Issues</h3>
+            <p class="text-gray-500 text-sm">Track and manage your project issues</p>
+        </div>
+
+        <!-- Status -->
+        <div class="flex items-cente text-sm">
+            <div class="flex items-center mb-1">
+                <span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>Open
+            </div>
+            <div class="flex items-center">
+                <span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>Closed
+            </div>
+        </div>
+    </div>
+    </div>
+  </main>
+    
+  <script src="index.js"></script>
 </body>
 </html>
