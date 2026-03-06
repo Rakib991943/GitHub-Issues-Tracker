@@ -15,6 +15,28 @@
 // }
 // }
 
+
+
+
+const btnContainer = document.querySelectorAll(".btnContainer button");
+
+function setActiveBtn(id) {
+
+  btnContainer.forEach(btn => {
+    btn.classList.remove("btn-outline", "btn-primary");
+  });
+
+  const activeBtn = document.getElementById(id);
+  activeBtn.classList.add("btn-primary");
+}
+
+// default active button
+setActiveBtn("allBtn");
+
+
+
+
+
 const spinnerLoading = document.getElementById("spinnerLoading");
 
 const showLoading=()=>{

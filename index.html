@@ -45,8 +45,8 @@
 
     <!-- Login Form  -->
 
-<!--
-<div id="loginForm" class="card w-[420px] mx-auto bg-base-100 shadow-xl p-8 mt-5">
+
+<!-- <div id="loginForm" class="card w-[420px] mx-auto bg-base-100 shadow-xl p-8 mt-5">
 
     <div class="flex justify-center mb-4">
       <div class=" ">
@@ -101,24 +101,19 @@
       <p>Password: <span class="font-semibold">admin123</span></p>
     </div>
 
-</div>
--->
-
-    
-  
+</div> -->
 
 
 
-
-  <main id="mainContainer" class="w-11/12 mx-auto" >
+  <main id="mainContainer" class="  w-11/12 mx-auto" >
   
 
     <!-- Tabs -->
     <div class="shadow-2xl rounded-2xl">
-      <div class="flex gap-5 py-4 px-3 mt-7  rounded-md  mb-6">
-        <button class="px-4 py-2  btn-outline btn-primary  btn font-semibold rounded-l-md">All</button>
-        <button class="px-4 py-2  btn-outline btn-primary  btn  font-semibold">Open</button>
-        <button class="px-4 py-2  btn-outline btn-primary btn  font-semibold ">Closed</button>
+      <div class="flex gap-5 py-4 px-3 mt-7  rounded-md  mb-6 btnContainer" >
+        <button onclick="setActiveBtn('allBtn')" id="allBtn" class="px-4 py-2  btn-outline btn-primary  btn font-semibold rounded-l-md">All</button>
+        <button onclick="setActiveBtn('openBtn')" id="openBtn" class="px-4 py-2  btn-outline btn-primary  btn  font-semibold">Open</button>
+        <button onclick="setActiveBtn('closeBtn')" id="closeBtn" class="px-4 py-2  btn-outline btn-primary btn  font-semibold ">Closed</button>
     </div>
     </div>
 
