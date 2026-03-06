@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GitHub Issue Tracker </title>
-
+  <link rel="shortcut icon" href="assets/github-logo.png" type="image/x-icon">
 
     <!-- Google Fonts  -->
 
@@ -114,11 +114,11 @@
   
 
     <!-- Tabs -->
-    <div class="shadow-2xl">
-      <div class="flex border border-blue-500 rounded-md  mb-6">
-        <button class="px-4 py-2 bg-blue-600 text-white font-semibold rounded-l-md">All</button>
-        <button class="px-4 py-2 border-l border-blue-500 text-blue-500 font-semibold">Open</button>
-        <button class="px-4 py-2 border-l border-blue-500 text-blue-500 font-semibold ">Closed</button>
+    <div class="shadow-2xl rounded-2xl">
+      <div class="flex gap-5 py-4 px-3 mt-7  rounded-md  mb-6">
+        <button class="px-4 py-2  btn-outline btn-primary  btn font-semibold rounded-l-md">All</button>
+        <button class="px-4 py-2  btn-outline btn-primary  btn  font-semibold">Open</button>
+        <button class="px-4 py-2  btn-outline btn-primary btn  font-semibold ">Closed</button>
     </div>
     </div>
 
@@ -137,16 +137,48 @@
         </div>
 
         <!-- Status -->
-        <div class="flex items-cente text-sm">
+        <div class="flex items-cente text-sm gap-3 ">
             <div class="flex items-center mb-1">
                 <span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>Open
             </div>
-            <div class="flex items-center">
+            <div class="flex items-center ">
                 <span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>Closed
             </div>
         </div>
     </div>
     </div>
+
+
+<!-- Loading Spinner  -->
+
+<div class=" flex justify-center items-center hidden" id="spinnerLoading">
+
+  <span class="loading loading-bars loading-xl mt-5 mb-3"></span>
+</div>
+
+
+    <!-- Card Contianer  -->
+
+
+    <div id="CardContainer" class="grid lg:grid-cols-4 gap-4">
+
+     
+
+   
+  
+
+    </div> 
+
+
+    
+  
+    
+
+
+
+    
+
+
   </main>
     
   <script src="index.js"></script>
