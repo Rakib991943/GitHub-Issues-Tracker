@@ -125,9 +125,9 @@ const ShowIssueData = (items) => {
     card.className = "max-w-md mx-auto mt-10";
 
     card.innerHTML = `
-    <div class="card bg-base-100 h-[400px] shadow-md border border-gray-200">
+    <div onclick="my_modal_5.showModal()" class="card bg-base-100 h-[400px] shadow-md border border-gray-200">
 
-      <div class="card-body">
+      <div class="card-body" >
 
         <div class="flex justify-between items-start">
 
