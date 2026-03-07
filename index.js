@@ -1,35 +1,67 @@
-//   const inputName = document.getElementById("inputName");
-// const inputPassword = document.getElementById("inputPassword");
-// const mainContainer = document.getElementById("mainContainer");
-// const loginForm = document.getElementById("loginForm");
-// console.log(loginForm);
-
-//  const handleSignIn=()=>{
-// const inputNameValue = inputName.value ;
-// const inputPasswordValue = inputPassword.value ;
+  const inputName = document.getElementById("inputName");
+const inputPassword = document.getElementById("inputPassword");
+const loginForm = document.getElementById("loginForm");
 
 
-// if(inputNameValue ==="admin" && inputPasswordValue === "admin123" ){
-//     mainContainer.classList.remove("hidden");
-//     loginForm.classList.add("hidden");
-// }
-// }
+ const handleSignIn=()=>{
+const inputNameValue = inputName.value ;
+const inputPasswordValue = inputPassword.value ;
+
+
+if(inputNameValue ==="admin" && inputPasswordValue === "admin123" ){
+    mainContainer.classList.remove("hidden");
+    loginForm.classList.add("hidden");
+}
+}
 
 const openlist = [];
 const closelist = [];
 
 
+const mainContainer = document.getElementById("mainContainer");
+const issues = document.getElementById("issue");
+
+const upDateOpenIssue=()=>{
+  issues.innerText = openlist.length;
+}
+const upDateCloseIssue=()=>{
+  issues.innerText = closelist.length;
+}
+
+
 
 const btnContainer = document.querySelectorAll(".btnContainer button");
 
-function setActiveBtn(id) {
+ setActiveBtn=async(id)=> {
+
+   
 
   btnContainer.forEach(btn => {
     btn.classList.remove("btn-outline", "btn-primary");
   });
 
+
+
   const activeBtn = document.getElementById(id);
   activeBtn.classList.add("btn-primary");
+
+  if(id==='openBtn'){
+    showLoading();
+    upDateOpenIssue();
+    ShowIssueData(openlist);
+  }else if(id==='closeBtn'){
+    showLoading();
+   upDateCloseIssue();
+    ShowIssueData(closelist);
+   
+   
+  }else{
+    const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
+  const issues = await res.json();
+  const items = issues.data ;
+  ShowIssueData(items);
+  }
+
 }
 
 // default active button
@@ -56,95 +88,84 @@ const loadIssueData = async () => {
   const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
   const issues = await res.json();
   const items = issues.data ;
-    
+  
+
   const openValue = items.filter(item=> item.status === 'open') ;
-  openlist.push(openValue);
+  openlist.push(...openValue);
   const closeValue = items.filter(item=> item.status === 'closed') ;
-  closelist.push(closeValue);
+  closelist.push(...closeValue);
 
   ShowIssueData(items);
 }
 
-console.log(openlist);
-console.log(closelist);
+
 
 const ShowIssueData = (items) => {
   CardContainer.innerHTML = "";
-
-
+  issues.innerText = items.length;
   items.forEach(item => {
+
+    const labels = item.labels.map(label => {
+      return `
+      <span class="badge badge-outline px-4 py-3 gap-2">
+        ${label.toUpperCase()}
+      </span>
+      `
+    }).join("");
+
+    const date = new Date(item.createdAt).toLocaleDateString();
+
     const card = document.createElement("div");
     card.className = "max-w-md mx-auto mt-10";
+
     card.innerHTML = `
-    <div class="card bg-base-100 shadow-md border border-gray-200">
+    <div class="card bg-base-100 h-[400px] shadow-md border border-gray-200">
 
-    <!-- Card Body -->
-    <div class="card-body">
+      <div class="card-body">
 
-      <!-- Top Section -->
-      <div class="flex justify-between items-start">
+        <div class="flex justify-between items-start">
 
-        <!-- Left Icon -->
-        <div class="w-10 h-10 flex items-center justify-center rounded-full bg-green-100 text-green-600">
-          <i class="fa-solid fa-circle-dot text-lg"></i>
+          <div class="w-10 h-10 flex items-center justify-center rounded-full bg-green-100 text-green-600">
+            <i class="fa-solid fa-circle-dot text-lg"></i>
+          </div>
+
+          <span class="badge badge-lg bg-red-100 text-red-500 border-none px-6 py-4">
+            ${item.priority.toUpperCase()}
+          </span>
+
         </div>
 
-        <!-- Priority Badge -->
-        <span class="badge badge-lg bg-red-100 text-red-500 border-none px-6 py-4">
-          HIGH
-        </span>
+        <h2 class="card-title text-xl font-bold text-gray-800 mt-2">
+          ${item.title}
+        </h2>
+
+        <p class="text-gray-500">
+          ${item.description}
+        </p>
+
+        <div class="flex gap-3 mt-3 flex-wrap">
+          ${labels}
+        </div>
 
       </div>
 
-      <!-- Title -->
-      <h2 class="card-title text-xl font-bold text-gray-800 mt-2">
-        Fix Navigation Menu On Mobile Devices
-      </h2>
+      <div class="border-t"></div>
 
-      <!-- Description -->
-      <p class="text-gray-500">
-        The navigation menu doesn't collapse properly on mobile devices...
-      </p>
+      <div class="p-5 text-gray-500">
 
-      <!-- Tags -->
-      <div class="flex gap-3 mt-3">
-
-        <!-- Bug Tag -->
-        <span class="badge badge-outline text-red-500 border-red-300 px-4 py-3 gap-2">
-          <i class="fa-solid fa-bug"></i>
-          BUG
-        </span>
-
-        <!-- Help Wanted Tag -->
-        <span class="badge badge-outline text-orange-500 border-orange-300 px-4 py-3 gap-2">
-          <i class="fa-regular fa-life-ring"></i>
-          HELP WANTED
-        </span>
+        <p>#${item.id} by ${item.author}</p>
+        <p>${date}</p>
 
       </div>
 
     </div>
-
-    <!-- Divider -->
-    <div class="border-t"></div>
-
-    <!-- Footer -->
-    <div class="p-5 text-gray-500">
-
-      <p>#1 by john_doe</p>
-      <p>1/15/2024</p>
-
-    </div>
-
-  </div>
-    `
+    `;
 
     CardContainer.appendChild(card);
   });
 
   hideLoading();
-
-}
+};
 
 
  getSearchValue=async()=>{
