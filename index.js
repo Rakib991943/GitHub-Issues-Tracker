@@ -15,6 +15,8 @@
 // }
 // }
 
+const openlist = [];
+const closelist = [];
 
 
 
@@ -53,8 +55,18 @@ const loadIssueData = async () => {
   showLoading();
   const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
   const issues = await res.json();
-  ShowIssueData(issues.data);
+  const items = issues.data ;
+    
+  const openValue = items.filter(item=> item.status === 'open') ;
+  openlist.push(openValue);
+  const closeValue = items.filter(item=> item.status === 'closed') ;
+  closelist.push(closeValue);
+
+  ShowIssueData(items);
 }
+
+console.log(openlist);
+console.log(closelist);
 
 const ShowIssueData = (items) => {
   CardContainer.innerHTML = "";
