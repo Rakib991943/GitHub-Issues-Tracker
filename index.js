@@ -39,31 +39,31 @@ setActiveBtn("allBtn");
 
 const spinnerLoading = document.getElementById("spinnerLoading");
 
-const showLoading=()=>{
-    spinnerLoading.classList.remove("hidden");
+const showLoading = () => {
+  spinnerLoading.classList.remove("hidden");
 }
-const hideLoading=()=>{
-    spinnerLoading.classList.add("hidden");
+const hideLoading = () => {
+  spinnerLoading.classList.add("hidden");
 }
 
 const CardContainer = document.getElementById("CardContainer");
 
 const loadIssueData = async () => {
 
-     showLoading();
-    const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
-    const issues = await res.json();
-    ShowIssueData(issues.data);
+  showLoading();
+  const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
+  const issues = await res.json();
+  ShowIssueData(issues.data);
 }
 
 const ShowIssueData = (items) => {
-   CardContainer.innerHTML ="";
-   
+  CardContainer.innerHTML = "";
 
-   items.forEach(item => {
+
+  items.forEach(item => {
     const card = document.createElement("div");
-   card.className="max-w-md mx-auto mt-10";
-    card.innerHTML =`
+    card.className = "max-w-md mx-auto mt-10";
+    card.innerHTML = `
     <div class="card bg-base-100 shadow-md border border-gray-200">
 
     <!-- Card Body -->
@@ -128,11 +128,23 @@ const ShowIssueData = (items) => {
     `
 
     CardContainer.appendChild(card);
-   });
+  });
 
-   hideLoading();
+  hideLoading();
 
 }
+
+
+ getSearchValue=async()=>{
+  const search = document.getElementById("Search");
+  let searchValue = search.value;
+  showLoading();
+  const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchValue}`)
+  const items = await res.json();
+  ShowIssueData(items.data);
+
+}
+
 
 loadIssueData();
 
