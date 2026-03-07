@@ -1,108 +1,114 @@
-  const inputName = document.getElementById("inputName");
+
+const inputName = document.getElementById("inputName");
 const inputPassword = document.getElementById("inputPassword");
 const loginForm = document.getElementById("loginForm");
+const mainContainer = document.getElementById("mainContainer");
 
+const handleSignIn = () => {
+  const inputNameValue = inputName.value;
+  const inputPasswordValue = inputPassword.value;
 
- const handleSignIn=()=>{
-const inputNameValue = inputName.value ;
-const inputPasswordValue = inputPassword.value ;
-
-
-if(inputNameValue ==="admin" && inputPasswordValue === "admin123" ){
+  if (inputNameValue === "admin" && inputPasswordValue === "admin123") {
     mainContainer.classList.remove("hidden");
     loginForm.classList.add("hidden");
-}
-}
+  }
+};
+
+
+// ================= ISSUE LIST =================
 
 const openlist = [];
 const closelist = [];
+const allItems =[];
+console.log(allItems.length);
+const issueCount = document.getElementById("issue");
+
+const upDateOpenIssue = () => {
+  issueCount.innerText = openlist.length;
+};
+
+const upDateCloseIssue = () => {
+  issueCount.innerText = closelist.length;
+};
 
 
-const mainContainer = document.getElementById("mainContainer");
-const issues = document.getElementById("issue");
-
-const upDateOpenIssue=()=>{
-  issues.innerText = openlist.length;
-}
-const upDateCloseIssue=()=>{
-  issues.innerText = closelist.length;
-}
-
-
+// ================= BUTTON ACTIVE =================
 
 const btnContainer = document.querySelectorAll(".btnContainer button");
 
- setActiveBtn=async(id)=> {
-
-   
+const setActiveBtn = async (id) => {
 
   btnContainer.forEach(btn => {
     btn.classList.remove("btn-outline", "btn-primary");
   });
 
-
-
   const activeBtn = document.getElementById(id);
   activeBtn.classList.add("btn-primary");
 
-  if(id==='openBtn'){
+  if (id === "openBtn") {
+
     showLoading();
     upDateOpenIssue();
     ShowIssueData(openlist);
-  }else if(id==='closeBtn'){
+
+  } else if (id === "closeBtn") {
+
     showLoading();
-   upDateCloseIssue();
+    upDateCloseIssue();
     ShowIssueData(closelist);
-   
-   
-  }else{
-    const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
-  const issues = await res.json();
-  const items = issues.data ;
-  ShowIssueData(items);
+
+  } else {
+    ShowIssueData(allItems);
   }
+};
 
-}
 
-// default active button
+
 setActiveBtn("allBtn");
 
 
-
-
+//  LOADING SPPINNER
 
 const spinnerLoading = document.getElementById("spinnerLoading");
 
 const showLoading = () => {
   spinnerLoading.classList.remove("hidden");
-}
+};
+
 const hideLoading = () => {
   spinnerLoading.classList.add("hidden");
-}
+};
+
+
+//  Load Data 
 
 const CardContainer = document.getElementById("CardContainer");
 
 const loadIssueData = async () => {
 
   showLoading();
-  const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
-  const issues = await res.json();
-  const items = issues.data ;
-  
 
-  const openValue = items.filter(item=> item.status === 'open') ;
+  const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
+  const data = await res.json();
+  const items = data.data;
+   allItems.push(...items)
+  const openValue = items.filter(item => item.status === "open");
   openlist.push(...openValue);
-  const closeValue = items.filter(item=> item.status === 'closed') ;
+
+  const closeValue = items.filter(item => item.status === "closed");
   closelist.push(...closeValue);
 
   ShowIssueData(items);
-}
+};
 
 
+  //  Display Issue 
 
 const ShowIssueData = (items) => {
+
   CardContainer.innerHTML = "";
-  issues.innerText = items.length;
+  issueCount.innerText = items.length;
+
   items.forEach(item => {
 
     const labels = item.labels.map(label => {
@@ -110,7 +116,7 @@ const ShowIssueData = (items) => {
       <span class="badge badge-outline px-4 py-3 gap-2">
         ${label.toUpperCase()}
       </span>
-      `
+      `;
     }).join("");
 
     const date = new Date(item.createdAt).toLocaleDateString();
@@ -168,17 +174,21 @@ const ShowIssueData = (items) => {
 };
 
 
- getSearchValue=async()=>{
-  const search = document.getElementById("Search");
-  let searchValue = search.value;
-  showLoading();
-  const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchValue}`)
-  const items = await res.json();
-  ShowIssueData(items.data);
+// SEARCH The inputValueWise
 
-}
+const getSearchValue = async () => {
+
+  const search = document.getElementById("Search");
+  const searchValue = search.value;
+
+  showLoading();
+
+  const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchValue}`);
+  const items = await res.json();
+
+  ShowIssueData(items.data);
+};
+
 
 
 loadIssueData();
-
-
