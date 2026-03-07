@@ -20,7 +20,6 @@ const handleSignIn = () => {
 const openlist = [];
 const closelist = [];
 const allItems =[];
-console.log(allItems.length);
 const issueCount = document.getElementById("issue");
 
 const upDateOpenIssue = () => {
@@ -125,7 +124,7 @@ const ShowIssueData = (items) => {
     card.className = "max-w-md mx-auto mt-10";
 
     card.innerHTML = `
-    <div onclick="my_modal_5.showModal()" class="card bg-base-100 h-[400px] shadow-md border border-gray-200">
+    <div onclick="myModal(${item.id})" class="card bg-base-100 h-[400px] shadow-md border border-gray-200">
 
       <div class="card-body" >
 
@@ -173,6 +172,79 @@ const ShowIssueData = (items) => {
   hideLoading();
 };
 
+// MOdal Single Data 
+ myModal =async(id)=>{
+  const myModal = document.getElementById("myModal");
+  myModal.innerHTML = "";
+  const modal = document.createElement("div");
+  modal.className = "modal-box max-w-2xl"
+ const res = await fetch((`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`));
+ const data =await res.json();
+ const issue = data.data ;
+
+ modal.innerHTML = `
+  <!-- Title -->
+    <h3 class="font-bold text-2xl text-gray-800">
+      Fix broken image uploads
+    </h3>
+
+    <!-- Status -->
+    <div class="flex items-center gap-3 mt-2 text-sm text-gray-500">
+      <span class="badge bg-green-100 text-green-600 border-none px-3 py-2">
+        Opened
+      </span>
+
+      <p>Opened by <span class="font-semibold">Fahim Ahmed</span></p>
+      <p>• 22/02/2026</p>
+    </div>
+
+    <!-- Labels -->
+    <div class="flex gap-3 mt-4">
+      <span class="badge bg-red-100 text-red-600 border-none">
+        BUG
+      </span>
+
+      <span class="badge bg-yellow-100 text-yellow-700 border-none">
+        HELP WANTED
+      </span>
+    </div>
+
+    <!-- Description -->
+    <p class="mt-5 text-gray-600">
+      The navigation menu doesn't collapse properly on mobile devices. 
+      Need to fix the responsive behavior.
+    </p>
+
+    <!-- Assignee + Priority -->
+    <div class="bg-gray-100 p-4 rounded-lg mt-5 flex justify-between">
+
+      <div>
+        <p class="text-gray-500 text-sm">Assignee:</p>
+        <p class="font-semibold">Fahim Ahmed</p>
+      </div>
+
+      <div>
+        <p class="text-gray-500 text-sm">Priority:</p>
+        <span class="badge bg-red-500 text-white border-none">
+          HIGH
+        </span>
+      </div>
+
+    </div>
+
+    <!-- Close button -->
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn bg-purple-600 text-white hover:bg-purple-700">
+          Close
+        </button>
+      </form>
+    </div>
+ `
+  
+ myModal.appendChild(modal)
+  myModal.showModal();
+ }
 
 // SEARCH The inputValueWise
 
