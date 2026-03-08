@@ -179,7 +179,7 @@ const myModal = async (id) => {
         ${issue.status}
       </span>
       <p>Opened by <span class="font-semibold">${issue.author}</span></p>
-      <p>${CreateDate}</p>
+      <p>${createDate}</p>
     </div>
 
     <div class="flex gap-3 mt-4">${leVels}</div>
