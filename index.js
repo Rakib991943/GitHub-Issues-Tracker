@@ -56,12 +56,13 @@ const ShowIssueData = (items) => {
     }).join("");
 
     const date = new Date(item.createdAt).toLocaleDateString();
+    const date2 = new Date(item.updatedAt).toLocaleDateString();
 
     const card = document.createElement("div");
     card.className = "max-w-md mx-auto mt-10";
 
     card.innerHTML = `
-      <div onclick="myModal(${item.id})" class="card bg-base-100 h-[400px] shadow-md border-t-4 border-gray-200 ${item.status === "open" ? "border-green-500" : "border-purple-500"}">
+      <div onclick="myModal(${item.id})" class="card bg-base-100 h-[450px] shadow-md border-t-4 border-gray-200 ${item.status === "open" ? "border-green-500" : "border-purple-500"}">
         <div class="card-body">
           <div class="flex justify-between items-start">
             <div class="w-10 h-10 flex items-center justify-center rounded-full bg-green-100 text-green-600">
@@ -92,10 +93,15 @@ const ShowIssueData = (items) => {
 
         <div class="border-t"></div>
 
-        <div class="p-5 text-gray-500">
+        <div class="p-5 text-gray-500 flex justify-between">
           <p>#${item.id} by ${item.author}</p>
           <p>${date}</p>
         </div>
+        <div class="p-5 text-gray-500 flex justify-between">
+          <p> Assignee by : <span class="text-xl font-bold">${item.assignee}</span> </p>
+          <p>${date2}</p>
+        </div>
+
       </div>
     `;
 
@@ -156,7 +162,6 @@ const myModal = async (id) => {
   const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
   const data = await res.json();
   const issue = data.data;
-
   const leVels = issue.labels.map((level, index) => {
     return `
       <span class="badge badge-outline px-4 py-3 gap-2 ${index === 0 ? "bg-red-300" : "bg-yellow-300"}">
@@ -164,7 +169,7 @@ const myModal = async (id) => {
       </span>
     `;
   }).join("");
-
+ const date = new Date(issue.createdAt).toLocaleDateString();
   modal.innerHTML = `
     <h3 class="font-bold text-2xl text-gray-800">${issue.title}</h3>
 
@@ -173,7 +178,7 @@ const myModal = async (id) => {
         ${issue.status}
       </span>
       <p>Opened by <span class="font-semibold">${issue.author}</span></p>
-      <p>${issue.createdAt}</p>
+      <p>${date}</p>
     </div>
 
     <div class="flex gap-3 mt-4">${leVels}</div>
