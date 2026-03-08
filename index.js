@@ -5,6 +5,7 @@ const loginForm = document.getElementById("loginForm");
 const mainContainer = document.getElementById("mainContainer");
 
 const handleSignIn = () => {
+
   const inputNameValue = inputName.value;
   const inputPasswordValue = inputPassword.value;
 
@@ -55,8 +56,8 @@ const ShowIssueData = (items) => {
       `;
     }).join("");
 
-    const date = new Date(item.createdAt).toLocaleDateString();
-    const date2 = new Date(item.updatedAt).toLocaleDateString();
+    const CreateDate = new Date(item.createdAt).toLocaleDateString();
+    const updateDate = new Date(item.updatedAt).toLocaleDateString();
 
     const card = document.createElement("div");
     card.className = "max-w-md mx-auto mt-10";
@@ -95,11 +96,11 @@ const ShowIssueData = (items) => {
 
         <div class="p-5 text-gray-500 flex justify-between">
           <p>#${item.id} by ${item.author}</p>
-          <p>${date}</p>
+          <p>${CreateDate}</p>
         </div>
         <div class="p-5 text-gray-500 flex justify-between">
           <p> Assignee by : <span class="text-xl font-bold">${item.assignee}</span> </p>
-          <p>${date2}</p>
+          <p>${updateDate}</p>
         </div>
 
       </div>
@@ -169,7 +170,7 @@ const myModal = async (id) => {
       </span>
     `;
   }).join("");
- const date = new Date(issue.createdAt).toLocaleDateString();
+ const  createDate = new Date(issue.createdAt).toLocaleDateString();
   modal.innerHTML = `
     <h3 class="font-bold text-2xl text-gray-800">${issue.title}</h3>
 
@@ -178,7 +179,7 @@ const myModal = async (id) => {
         ${issue.status}
       </span>
       <p>Opened by <span class="font-semibold">${issue.author}</span></p>
-      <p>${date}</p>
+      <p>${CreateDate}</p>
     </div>
 
     <div class="flex gap-3 mt-4">${leVels}</div>
